@@ -155,27 +155,47 @@
           <div id="js-content" class="content-ll">
             
   
-    <article id="post-my-first-blog" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-庆祝博客诞生" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/01/24/my-first-blog/">my first blog</a>
+      <a class="article-title" href="/2017/01/24/庆祝博客诞生/">庆祝博客诞生</a>
     </h1>
   
 
         
-        <a href="/2017/01/24/my-first-blog/" class="archive-article-date">
-  	<time datetime="2017-01-24T09:50:58.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-01-24</time>
+        <a href="/2017/01/24/庆祝博客诞生/" class="archive-article-date">
+  	<time datetime="2017-01-24T09:58:13.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-01-24</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>不知道记录写什么。！！！</p>
+        <p><em>真的不知道写些什么 记录些知识吧</em><br>1、homebrew：ruby -e “$(curl -fsSL <a href="https://raw.githubusercontent.com/Homebrew/install/master/install" target="_blank" rel="external">https://raw.githubusercontent.com/Homebrew/install/master/install</a>)”<br>2、安装nginx clone nginx项目到本地 ：brew tap homebrew/nginx   安装  brew install nginx-full –with-rtmp-module<br>3、运行nginx此时, nginx和rtmp安装好了,继续输入命令:nginx然后再浏览器打开<a href="http://localhost:8080" target="_blank" rel="external">http://localhost:8080</a><br>4、配置nginx和rtmp  查看nginx.conf文件路径：brew info nginx-full   用vim或者其他工具找到这个路径并且打开这个文件<br>拉到最最下面，添加如下配置:rtmp { server {     listen 1935;     application rtmplive {         live on;         record off;     } }}<br> 然后重启nginx   （/usr/local/Cellar/nginx-full/1.10.2/bin/nginx -s reload）     查看版本号nginx -v<br>5、安装ffmpeg  执行命令(耐心等待一会)brew install ffmpeg下载一个支持rtmp协议的视频播放器，推荐VLC<br>6、ffmpeg推流<br>事先准备好一个视频，<br>以桌面的一个movie.mp4为例,下面的路径要打对，执行推流命令ffmpeg -re -i /Users/lzc/Desktop/movie.mp4 -vcodec libx264 -acodec aac -strict -2 -f flv rtmp://localhost:1935/rtmplive/room  将视频推流到服务器后，打开VLC，然后File->open network->输入：rtmp://localhost:1935/rtmplive/room<br>   cocoapods<br>第一步:sudo gem update –system<br>第二步：移除旧的ruby  </p>
+<p>gem sources –remove <a href="https://rubygems.org/" target="_blank" rel="external">https://rubygems.org/</a><br>成功后会出现source <a href="https://rubygems.org/" target="_blank" rel="external">https://rubygems.org/</a> not present in cache<br>第三步:安装新的  </p>
+<p>gem sources -a <a href="https://ruby.taobao.org/" target="_blank" rel="external">https://ruby.taobao.org/</a><br>成功后会出现<a href="https://ruby.taobao.org/" target="_blank" rel="external">https://ruby.taobao.org/</a> added to sources<br>第四步：查看<br> gem sources -l   </p>
+<p>成功后会出现<br><strong><em> CURRENT SOURCES </em></strong><br><a href="https://ruby.taobao.org/" target="_blank" rel="external">https://ruby.taobao.org/</a><br>第五步:安装  </p>
+<p>sudo gem install cocoapods<br>(有Error 用 sudo gem install -n /usr/local/bin cocoapods 解决 然后 pod setup<br>)<br>(pod install –verbose –no-repo-update<br>pod update –verbose –no-repo-update<br>或者<br>pod install –no-repo-update<br>pod update –no-repo-update)   </p>
+<p>通过pod update PODNAME,你可以只更新某个特定的pod库  </p>
+<p>FFmpeg<br>1.安装homebrew —-    /usr/bin/ruby -e “$(curl -fsSL <a href="https://raw.githubusercontent.com/Homebrew/install/master/install" target="_blank" rel="external">https://raw.githubusercontent.com/Homebrew/install/master/install</a>)”<br>2.安装FFmpeg  brew install ffmpeg  （这里可以brew  info ffmpeg  查看FFmpeg库的信息）<br>3.更新brew和FFmpeg库   brew update &amp;&amp; brew upgrade ffmpeg<br>4.ffmpeg -i XX.flv -b:v 640k XX.mp4 （将xx.flv转换成xx.mp4 码率设置为 640kbps。）</p>
+<p>FFmpeg库编译iOS需要的库</p>
+<p>1.gas-preprocessor.pl 下载 —- 放在目录下更改权限 —- chmod 777 /usr/sbin/gas-preprocessor.pl或chmod 777 /usr/local/bin/gas-preprocessor.pl<br>2.brew install yasm<br>3.FFmpeg-iOS-build-script 下载   然后进入目录   执行 ./build-ffmpeg.sh 就能获得iOS所需要的库（也可以分步执行 ./build-ffmpeg.sh arm64—-得到arm64库   ./build-ffmpeg.sh armv7 x86_64   ./build-ffmpeg.sh lipo—-合成以上库）<br>4.然后将 FFmpeg-iOS 文件夹拖进工程。然后需要在 Build Setting 里面配置一下 Header Search Paths ，需要将 include 以及 include 下面的子文件夹都配置进去</p>
+<ol>
+<li>添加依赖库。<br>需要添加以下几个 framework 和 lib ： CoreMedia.framework ， VideoToolbox.framework ， AudioToolbox.framework ， libiconv.2.4.0.tbd ， libbz2.1.0.tbd ， libz.1.2.5.tbd。  </li>
+</ol>
+<p>6.编译<br>在 ViewController 里包含头文件 #import “avcodec.h”， 然后在 viewDidLoad 中调用 avcodec_register_all();，应该就可以编译通过了。<br>7.在我的 Xcode8 中会有一堆警告，提示 empty paragraph passed to @param command ，这里我们需要处理一下。在引用头文件的时候使用宏包含一下。</p>
+<h1 id="pragma-clang-diagnostic-push"><a href="#pragma-clang-diagnostic-push" class="headerlink" title="pragma clang diagnostic push"></a>pragma clang diagnostic push</h1><h1 id="pragma-clang-diagnostic-ignored-“-Wdocumentation”"><a href="#pragma-clang-diagnostic-ignored-“-Wdocumentation”" class="headerlink" title="pragma clang diagnostic ignored “-Wdocumentation”"></a>pragma clang diagnostic ignored “-Wdocumentation”</h1><h1 id="import-“avcodec-h”"><a href="#import-“avcodec-h”" class="headerlink" title="import “avcodec.h”"></a>import “avcodec.h”</h1><h1 id="pragma-clang-pop"><a href="#pragma-clang-pop" class="headerlink" title="pragma clang pop"></a>pragma clang pop</h1><p>解释<br>AVFormatContext: 数据文件操作者，主要是用于存储音视频封装格式中包含的信息, 在工程当中占着具足轻重的地位，因为很多函数都要用到它作为参数。同时，它也是我们进行解封装的功能结构体。</p>
+<p>AVOutputFormat: 输出的格式，包括音频封装格式、视频装格式、字幕封装格式，所有封装格式都在 AVCodecID 这个枚举类型上面了 </p>
+<p>AVStream: 一个装载着视频/音频流信息的结构体，包括音视频流的长度，元数据信息，其中 index 属性用于标识视频/音频流</p>
+<p>AVCodecContext： 这个结构体十分庞大，但它的主要是用于编码使用的，结构体中的的 AVCodec *codec 就是编码所采用的编码器器, 当然，这个结构体中要存入视频的基本参数，例如宽高等，存入音频的基本参数，声道，采样率等。</p>
+<p>AVCodec：编码器，设置编码类型，像素格式，视频宽高，fps（每秒帧数）, 用于编解码音视频编码层使用。</p>
+<p>AVIOContext：用于管理输入输出结构体。例如解码的情况下，将一个视频文件中的数据先从硬盘中读入到结构体中的 buffer 中，然后送给解码器用于解码，后面我们会用到。</p>
+<p>AVFrame： 结构体一般用于存储原始数据（即非压缩数据，例如对视频来说是YUV，RGB，对音频来说是PCM），此外还包含了一些相关的信息。比如说，解码的时候存储了宏块类型表，QP表，运动矢量表等数据。编码的时候也存储了相关的数据。因此在使用FFMPEG进行码流分析的时候，AVFrame是一个很重要的结构体。</p>
+<p>FFmpeg<br>iOS：<a href="https://github.com/kewlbear/FFmpeg-iOS-build-script" target="_blank" rel="external">https://github.com/kewlbear/FFmpeg-iOS-build-script</a><br>x264<br>iOS：<a href="https://github.com/kewlbear/x264-ios" target="_blank" rel="external">https://github.com/kewlbear/x264-ios</a><br>fdk-aac<br>iOS：<a href="https://github.com/verybigdog/fdk-aac-ios" target="_blank" rel="external">https://github.com/verybigdog/fdk-aac-ios</a><br>或 <a href="https://github.com/kewlbear/fdk-aac-build-script-for-iOS，不支持iOS" target="_blank" rel="external">https://github.com/kewlbear/fdk-aac-build-script-for-iOS，不支持iOS</a> arm64，但是可以借鉴<br>librtmp<br>iOS：<a href="https://github.com/saiten/ios-librtmp" target="_blank" rel="external">https://github.com/saiten/ios-librtmp</a><br>OpenSSL<br>iOS：<a href="https://github.com/x2on/OpenSSL-for-iPhone" target="_blank" rel="external">https://github.com/x2on/OpenSSL-for-iPhone</a></p>
 
       
 
@@ -188,7 +208,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2017/01/24/my-first-blog/">展开全文 >></a>
+          <a class="article-more-a" href="/2017/01/24/庆祝博客诞生/">展开全文 >></a>
         </p>
       
 
